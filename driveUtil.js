@@ -1,5 +1,3 @@
-const GoogleService = require('./GoogleService'); // Importando o GoogleService
-const googleService = new GoogleService(); // Criando a instância do GoogleService
 
 function listSharedDrives(nextPageToken) {
   return retryApiCall(async function() {
@@ -128,11 +126,3 @@ function removePermissionsAndCleanup(sharedDriveId) {
     }
   });
 }
-
-// Exportar as funções para serem usadas em outro arquivo
-module.exports = {
-    listSharedDrives,
-    addOrganizerToDrive,
-    listFilesAndCleanup,
-    removePermissionsAndCleanup,
-  };

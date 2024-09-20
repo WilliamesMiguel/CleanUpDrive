@@ -1,32 +1,22 @@
-require('dotenv').config(); // Carregar as variáveis de ambiente do .env
-const { google } = require('googleapis');
+import { main } from './main.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
-// Configurações da API do Google extraídas do arquivo .env
-const clientEmail = process.env.API_GOOGLE_EMAIL;
-const privateKey = process.env.API_GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
-const subjectUser = process.env.API_GOOGLE_SUBJECT_USER;
 
-class GoogleService {
-  constructor() {
-
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: clientEmail,
-        private_key: privateKey,
-      },
-      scopes: [
-        'https://www.googleapis.com/auth/drive',
-      ],
-      clientOptions: { subject: subjectUser },
-    });
-
-    this.drive = google.drive({
-      version: 'v3',
-      auth,
-    });
-  }
-}
-
-module.exports = GoogleService;
-
+// Captura rejeições de promessas não tratadas
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('Rejeição de Promise não capturada:', reason.message);
+    // Aqui você pode continuar ou registrar o erro sem parar a execução
+  });
   
+  // Captura exceções não tratadas
+  process.on('uncaughtException', (error) => {
+    console.log('Erro não capturado:', error.message);
+    // Novamente, pode continuar a execução ou sair do processo de forma controlada
+  });
+  
+  // Aqui você coloca o resto do código
+  console.log('Iniciando a aplicação...');
+
+//bootstrap
+main();
